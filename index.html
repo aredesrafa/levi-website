@@ -11,7 +11,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,17 +20,8 @@
   <header class="nav" id="nav">
     <div class="container nav-inner">
       <a href="/" class="logo" aria-label="Levi Recorder home">
-        <span class="logo-icon" aria-hidden="true">
-          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="36" height="36" rx="8" fill="#0E0A05"/>
-            <rect x="13" y="3" width="2.5" height="30" rx="1.25" fill="#E0D4C4"/>
-            <rect x="8.5" y="7" width="2.5" height="22" rx="1.25" fill="#E0D4C4" opacity="0.78"/>
-            <rect x="4" y="12" width="2.5" height="12" rx="1.25" fill="#E0D4C4" opacity="0.55"/>
-            <path d="M18 30C28 22 28.5 17.5 28.5 13C28 7 25 4.5 21 4.5C17 4.5 15.5 8 16.5 14C17 19 21.5 25 25 27.5C27.5 29.5 34 29 34 29" stroke="#E0D4C4" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-            <circle cx="33.5" cy="17" r="3" fill="#CD5500"/>
-          </svg>
-        </span>
-        <span class="logo-text"><em class="logo-l">l</em>evi<span class="logo-dot">·</span></span>
+        <img src="assets/icontray-levi-recorder.svg" alt="" class="logo-tray" aria-hidden="true">
+        <span class="logo-text">levi·</span>
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
@@ -63,63 +54,154 @@
   <section class="hero" id="top">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-vignette" aria-hidden="true"></div>
-    <div class="hero-waveform" id="heroWaveform" aria-hidden="true"></div>
 
     <div class="container hero-body">
-      <div class="hero-badge animate-in" style="--d:0s">
-        <span class="badge-pulse"></span>
-        Mac App Store &nbsp;·&nbsp; Free to try
+
+      <!-- Left col: text -->
+      <div class="hero-text">
+        <div class="hero-badge animate-in" style="--d:0s">
+          <span class="badge-pulse"></span>
+          Mac App Store &nbsp;·&nbsp; Free to try
+        </div>
+
+        <h1 class="hero-headline animate-in" style="--d:0.12s">
+          Record meetings.<br><span class="hero-orange">Transcribe locally.</span>
+        </h1>
+
+        <p class="hero-sub animate-in" style="--d:0.22s">
+          A native Mac menu bar recorder for mic&nbsp;+&nbsp;system audio. No bots, no cloud account, no monthly fee.
+        </p>
+
+        <ul class="hero-pills animate-in" style="--d:0.3s" aria-label="Key features">
+          <li>Both sides recorded</li>
+          <li>Auto Mode</li>
+          <li>Local transcripts</li>
+          <li>One-time Pro</li>
+        </ul>
+
+        <div class="hero-actions animate-in" style="--d:0.38s">
+          <a href="#" class="btn btn-primary btn-lg">
+            <svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2a8 8 0 1 0 0 16A8 8 0 0 0 10 2Zm-1.5 5.5 5 2.5-5 2.5v-5Z" fill="currentColor"/></svg>
+            Download on the Mac App Store
+          </a>
+        </div>
+
+        <p class="hero-compat animate-in" style="--d:0.46s">
+          Works with Zoom, Google Meet, Teams, Slack, Discord &amp; any VoIP app
+        </p>
       </div>
 
-      <div class="hero-app-icon animate-in" style="--d:0.1s" aria-hidden="true">
-        <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="160" height="160" rx="36" fill="#110E09"/>
-          <rect x="0.75" y="0.75" width="158.5" height="158.5" rx="35.25" stroke="#2E2720" stroke-width="1.5"/>
-          <!-- Waveform bars: shortest left → tallest at center boundary -->
-          <rect x="18"  y="72" width="9" height="16"  rx="4.5" fill="#E0D4C4" opacity="0.45"/>
-          <rect x="33"  y="56" width="9" height="48"  rx="4.5" fill="#E0D4C4" opacity="0.62"/>
-          <rect x="48"  y="37" width="9" height="86"  rx="4.5" fill="#E0D4C4" opacity="0.80"/>
-          <rect x="63"  y="15" width="9" height="130" rx="4.5" fill="#EAE0D0"/>
-          <!-- Cursive l -->
-          <path d="M84 134 C107 112 110 97 110 79 C109 56 103 44 92 45 C81 45 78 57 80 73 C82 90 94 114 105 123 C116 132 136 131 136 131"
-                stroke="#EAE0D0" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- Orange dot -->
-          <circle cx="143" cy="77" r="12" fill="#CD5500"/>
-        </svg>
-        <div class="icon-glow" aria-hidden="true"></div>
+      <!-- Right col: popover mockup -->
+      <div class="hero-popover-wrap animate-in" style="--d:0.18s" aria-hidden="true">
+        <div class="popover">
+
+          <!-- Header: recording state -->
+          <div class="pop-header">
+            <div class="pop-status">
+              <span class="pop-dot pop-dot--rec"></span>
+              <span class="pop-title">Recording</span>
+            </div>
+            <div class="pop-timer">06:53 &nbsp;·&nbsp; mic&nbsp;+&nbsp;system</div>
+          </div>
+
+          <!-- Stop button -->
+          <div class="pop-stop-row">
+            <button class="pop-stop" tabindex="-1">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="2" width="8" height="8" rx="1.5" fill="currentColor"/></svg>
+              Stop recording
+            </button>
+          </div>
+
+          <!-- Toggles -->
+          <div class="pop-section">
+            <div class="pop-toggle-row">
+              <div class="pop-toggle-label">
+                <span class="pop-toggle-name">Auto Mode</span>
+                <span class="pop-badge pop-badge--pro">PRO</span>
+              </div>
+              <div class="pop-switch pop-switch--on" role="switch" aria-checked="true"></div>
+            </div>
+            <div class="pop-toggle-row">
+              <div class="pop-toggle-label">
+                <span class="pop-toggle-name">Denoise</span>
+                <span class="pop-badge pop-badge--pro">PRO</span>
+              </div>
+              <div class="pop-switch pop-switch--on" role="switch" aria-checked="true"></div>
+            </div>
+            <div class="pop-toggle-row">
+              <div class="pop-toggle-label">
+                <span class="pop-toggle-name">Transcribe</span>
+                <span class="pop-badge pop-badge--pro">PRO</span>
+              </div>
+              <div class="pop-switch pop-switch--on" role="switch" aria-checked="true"></div>
+            </div>
+          </div>
+
+          <div class="pop-divider"></div>
+
+          <!-- Destination folder -->
+          <div class="pop-folder-row">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1.5 3.5h4l1.5 1.5H12.5a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V4a.5.5 0 0 1 .5-.5Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/></svg>
+            <span class="pop-folder-label">~/Documents/Levi Recordings</span>
+          </div>
+
+          <div class="pop-divider"></div>
+
+          <!-- Recent recordings -->
+          <div class="pop-recent-header">Recent</div>
+
+          <div class="pop-recording-row">
+            <div class="pop-rec-left">
+              <div class="pop-rec-icon">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1a5.5 5.5 0 1 0 0 11A5.5 5.5 0 0 0 6.5 1Zm-1 3.5 3.5 2-3.5 2v-4Z" fill="currentColor" opacity=".6"/></svg>
+              </div>
+              <div class="pop-rec-info">
+                <span class="pop-rec-time">Today, 16:15</span>
+                <span class="pop-rec-meta">45 min &nbsp;·&nbsp; transcribed</span>
+              </div>
+            </div>
+            <div class="pop-rec-actions">
+              <button class="pop-action" tabindex="-1" title="Open in Finder">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M9 1H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1ZM4.5 5h3M4.5 7h2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+              </button>
+              <button class="pop-action" tabindex="-1" title="Reveal in Finder">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10.5 10.5 2M10.5 2H6.5M10.5 2v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="pop-recording-row">
+            <div class="pop-rec-left">
+              <div class="pop-rec-icon">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1a5.5 5.5 0 1 0 0 11A5.5 5.5 0 0 0 6.5 1Zm-1 3.5 3.5 2-3.5 2v-4Z" fill="currentColor" opacity=".6"/></svg>
+              </div>
+              <div class="pop-rec-info">
+                <span class="pop-rec-time">Today, 10:00</span>
+                <span class="pop-rec-meta">28 min &nbsp;·&nbsp; transcribed</span>
+              </div>
+            </div>
+            <div class="pop-rec-actions">
+              <button class="pop-action" tabindex="-1" title="Open file">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M9 1H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1ZM4.5 5h3M4.5 7h2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg>
+              </button>
+              <button class="pop-action" tabindex="-1" title="Reveal">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 10.5 10.5 2M10.5 2H6.5M10.5 2v4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="pop-footer">
+            <button class="pop-footer-btn" tabindex="-1">Show all →</button>
+            <button class="pop-footer-btn pop-footer-btn--quit" tabindex="-1">Quit</button>
+          </div>
+
+        </div>
+
+        <!-- Glow under popover -->
+        <div class="popover-glow" aria-hidden="true"></div>
       </div>
 
-      <h1 class="hero-headline animate-in" style="--d:0.18s">
-        Record meetings.<br><em>Transcribe locally.</em>
-      </h1>
-
-      <p class="hero-sub animate-in" style="--d:0.26s">
-        A native Mac menu bar recorder for mic&nbsp;+&nbsp;system audio.
-      </p>
-
-      <p class="hero-desc animate-in" style="--d:0.32s">
-        Levi sits in your menu bar and records both sides of your meeting&nbsp;—&nbsp;microphone
-        and system audio&nbsp;—&nbsp;without bots, browser extensions, or cloud accounts.
-      </p>
-
-      <div class="hero-actions animate-in" style="--d:0.4s">
-        <a href="#" class="btn btn-primary btn-lg">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path d="M9 1a8 8 0 1 0 0 16A8 8 0 0 0 9 1Zm-1.5 5.5 4.5 2.5-4.5 2.5v-5Z" fill="currentColor"/>
-          </svg>
-          Download on the Mac App Store
-        </a>
-        <a href="#features" class="btn-ghost">
-          See how it works
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M7 2.5v9M7 11.5 3.5 8M7 11.5 10.5 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-
-      <p class="hero-compat animate-in" style="--d:0.5s">
-        Works with Zoom, Google Meet, Teams, Slack, Discord, and any VoIP app.
-      </p>
     </div>
 
     <div class="hero-scroll-hint" aria-hidden="true"><span></span></div>
@@ -148,27 +230,26 @@
   <section class="features section-warm" id="features">
     <div class="container">
       <header class="section-header">
-        <h2>One job,&nbsp;<em>done well.</em></h2>
+        <h2>One job,&nbsp;<span class="orange">done well.</span></h2>
         <p>Everything you need from a meeting recorder. Nothing you don't.</p>
       </header>
 
       <div class="features-grid">
 
-        <div class="feature-card">
+        <div class="feature-card reveal">
           <div class="ficon">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <rect x="8" y="2" width="6" height="11" rx="3" stroke="currentColor" stroke-width="1.5"/>
               <path d="M4 10c0 3.866 3.134 7 7 7s7-3.134 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               <line x1="11" y1="17" x2="11" y2="20.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               <line x1="8" y1="20.5" x2="14" y2="20.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M18 5c1.2.6 2.5 2 2.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
             </svg>
           </div>
           <h3>Both sides recorded</h3>
           <p>Captures your mic and the audio from your Mac in one file. No need to record separately or mix later.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal" style="--delay:60ms">
           <div class="ficon">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <circle cx="11" cy="11" r="3" stroke="currentColor" stroke-width="1.5"/>
@@ -180,7 +261,7 @@
           <p>Starts recording automatically when meeting apps use the microphone. No manual timer needed.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal" style="--delay:120ms">
           <div class="ficon">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <rect x="3" y="3" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/>
@@ -191,19 +272,17 @@
           <p>Creates a plain <code>.txt</code> sidecar next to the <code>.m4a</code> after recording ends. Speaker labels included.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal" style="--delay:0ms">
           <div class="ficon">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <path d="M1.5 11S4 7.5 7 7.5c2.2 0 3.8 1.8 5 3.5s2.8 3.5 5 3.5c3 0 3.5-3.5 3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M1.5 6.5s1-2 3-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
-              <path d="M1.5 15.5s1 2 3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
             </svg>
           </div>
           <h3>Noise reduction</h3>
           <p>Cleans recordings on-device with no cloud upload. Quieter background, clearer audio from both sides.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal" style="--delay:60ms">
           <div class="ficon">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <path d="M11 2C6.03 2 2 6.03 2 11s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9Z" stroke="currentColor" stroke-width="1.5"/>
@@ -215,7 +294,7 @@
           <p>Recording and transcription run entirely on your Mac. Nothing is sent to any server, ever.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal" style="--delay:120ms">
           <div class="ficon">
             <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
               <rect x="3" y="5" width="16" height="13" rx="2.5" stroke="currentColor" stroke-width="1.5"/>
@@ -233,27 +312,27 @@
 
 
   <!-- ─── How it works ─── -->
-  <section class="how section-light" id="how">
+  <section class="how section-dark" id="how">
     <div class="container">
-      <header class="section-header">
+      <header class="section-header section-header--dark">
         <h2>How it works.</h2>
         <p>Three steps. No setup, no dashboard.</p>
       </header>
 
       <div class="steps">
-        <div class="step">
+        <div class="step reveal">
           <div class="step-num" aria-hidden="true">01</div>
           <div class="step-divider" aria-hidden="true"></div>
           <h3>Click to record</h3>
           <p>Open Levi from your menu bar and start recording. Or enable Auto Mode and let Levi begin the moment your meeting app activates the mic.</p>
         </div>
-        <div class="step">
+        <div class="step reveal" style="--delay:80ms">
           <div class="step-num" aria-hidden="true">02</div>
           <div class="step-divider" aria-hidden="true"></div>
           <h3>Meeting ends</h3>
           <p>Stop manually, or let Levi detect when your meeting ends. The audio is mixed, optionally denoised, and saved as a compact <code>.m4a</code>.</p>
         </div>
-        <div class="step">
+        <div class="step reveal" style="--delay:160ms">
           <div class="step-num" aria-hidden="true">03</div>
           <h3>Get audio&nbsp;+&nbsp;transcript</h3>
           <p>A <code>.m4a</code> and a <code>.txt</code> transcript with speaker labels land in your chosen folder. Ready to search, share, or archive.</p>
@@ -267,18 +346,17 @@
   <section class="about section-warm">
     <div class="container about-inner">
       <span class="about-eyebrow">What Levi is</span>
-      <blockquote>
+      <blockquote class="reveal">
         "Levi is not a meeting bot and not a cloud notes service. It's a quiet macOS
         app that captures mic and system audio, optionally cleans the recording,
-        and creates a local transcript next to the final&nbsp;<code>.m4a</code>.
-        <br>One job, done well."
+        and creates a local transcript next to the final&nbsp;<code>.m4a</code>."
       </blockquote>
     </div>
   </section>
 
 
   <!-- ─── Privacy ─── -->
-  <section class="privacy section-dark" id="privacy">
+  <section class="privacy section-hero" id="privacy">
     <div class="container privacy-inner">
       <div class="privacy-shield" aria-hidden="true">
         <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
@@ -287,15 +365,15 @@
         </svg>
       </div>
 
-      <h2>Built for local&nbsp;workflows.</h2>
+      <h2 class="reveal">Built for local&nbsp;workflows.</h2>
 
-      <p class="privacy-body">
+      <p class="privacy-body reveal">
         Transcription runs entirely on your Mac. The audio never leaves your device.
         No cloud account to sign into. Recordings and transcripts stay in a folder
         you choose.
       </p>
 
-      <div class="privacy-tags">
+      <div class="privacy-tags reveal">
         <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> No cloud account</span>
         <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> No bots joining calls</span>
         <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Audio stays on your Mac</span>
@@ -314,7 +392,7 @@
       </header>
 
       <div class="pricing-cards">
-        <div class="pricing-card">
+        <div class="pricing-card reveal">
           <div class="pricing-tier">Free</div>
           <div class="pricing-price">$0</div>
           <p class="pricing-tagline">5 hours of recording. Manual mode. Keep forever.</p>
@@ -322,12 +400,11 @@
             <li>Manual recording</li>
             <li>Mic + system audio</li>
             <li>5 hours total</li>
-            <li>Standard quality</li>
           </ul>
           <a href="#" class="btn btn-outline btn-full">Download free</a>
         </div>
 
-        <div class="pricing-card pricing-card--pro">
+        <div class="pricing-card pricing-card--pro reveal" style="--delay:80ms">
           <div class="pricing-pro-badge">Pro</div>
           <div class="pricing-tier">Levi Pro</div>
           <div class="pricing-price">$4.99 <span>one-time</span></div>
@@ -349,23 +426,13 @@
 
 
   <!-- ─── Bottom CTA ─── -->
-  <section class="cta-section section-dark">
+  <section class="cta-section section-hero">
     <div class="container cta-inner">
-      <div class="cta-icon" aria-hidden="true">
-        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="52" height="52" rx="12" fill="#1A1510"/>
-          <rect x="14" y="22" width="3" height="8" rx="1.5" fill="#E0D4C4" opacity="0.45"/>
-          <rect x="19.5" y="16" width="3" height="20" rx="1.5" fill="#E0D4C4" opacity="0.62"/>
-          <rect x="25" y="10" width="3" height="32" rx="1.5" fill="#E0D4C4" opacity="0.82"/>
-          <rect x="30.5" y="5" width="3" height="42" rx="1.5" fill="#EAE0D0"/>
-          <path d="M36 45C44 38 44.5 34 44.5 28C44 20 41.5 16 37.5 16C33.5 16 32 19.5 33 26C34 32 38.5 38 42 41C44.5 43 50 42.5 50 42.5" stroke="#EAE0D0" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <circle cx="49.5" cy="26" r="3.5" fill="#CD5500"/>
-        </svg>
-      </div>
-      <h2>Ready to record&nbsp;quietly?</h2>
-      <p>Download Levi Recorder and try it free on your Mac.</p>
-      <a href="#" class="btn btn-primary btn-lg">Download on the Mac App Store</a>
-      <p class="cta-fine">macOS 14.4 or later · Free with optional one-time Pro upgrade</p>
+      <img src="assets/icon-levi-app-dark.png" alt="Levi Recorder icon" class="cta-icon" width="72" height="72">
+      <h2 class="reveal">Ready to record&nbsp;quietly?</h2>
+      <p class="reveal">Download Levi Recorder and try it free on your Mac.</p>
+      <a href="#" class="btn btn-primary btn-lg reveal">Download on the Mac App Store</a>
+      <p class="cta-fine reveal">macOS 14.4 or later · Free with optional one-time Pro upgrade</p>
     </div>
   </section>
 
@@ -374,7 +441,8 @@
   <footer class="footer">
     <div class="container footer-inner">
       <a href="/" class="logo" aria-label="Levi Recorder home">
-        <span class="logo-text"><em class="logo-l">l</em>evi<span class="logo-dot">·</span></span>
+        <img src="assets/icontray-levi-recorder.svg" alt="" class="logo-tray" aria-hidden="true">
+        <span class="logo-text">levi·</span>
       </a>
       <nav class="footer-links" aria-label="Footer navigation">
         <a href="#">Privacy Policy</a>
