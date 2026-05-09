@@ -561,7 +561,7 @@ blockquote {
   color: var(--text-light-primary);
 }
 blockquote strong {
-  font-weight: 500;
+  font-weight: 700;
   font-style: normal;
   color: var(--text-light-primary);
 }
