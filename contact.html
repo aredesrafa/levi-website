@@ -70,11 +70,17 @@
       <!-- Form -->
       <form
         class="contact-form"
-        action="https://formspree.io/f/aredesrafael@gmail.com"
+        action="https://api.web3forms.com/submit"
         method="POST"
         novalidate
         id="contactForm"
       >
+        <!-- Replace YOUR_ACCESS_KEY_HERE with your actual Web3Forms access key -->
+        <input type="hidden" name="access_key" value="f98bc7f0-8515-4e77-94d8-c435218c859d">
+        
+        <!-- Honeypot Spam Protection -->
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
         <input type="hidden" name="_subject" id="formSubject" value="Feedback — Levi Recorder">
         <input type="hidden" name="type" id="formType" value="feedback">
 
