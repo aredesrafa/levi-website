@@ -559,6 +559,11 @@ blockquote {
   letter-spacing: -0.02em;
   color: var(--text-light-primary);
 }
+blockquote strong {
+  font-weight: 500;
+  font-style: normal;
+  color: var(--text-light-primary);
+}
 
 /* ────────────────────────
    PRIVACY
