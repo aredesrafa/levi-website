@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Levi Recorder</title>
+  <meta name="description" content="Levi Recorder privacy policy. Short version: your audio and transcripts never leave your Mac.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="privacy.css">
+</head>
+<body class="policy-page">
+
+  <!-- ─── Nav ─── -->
+  <header class="nav scrolled" id="nav">
+    <div class="container nav-inner">
+      <a href="/" class="logo" aria-label="Levi Recorder home">
+        <img src="assets/icontray-levi-recorder.svg" alt="" class="logo-tray" aria-hidden="true">
+        <span class="logo-text">levi</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#how">How it works</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="privacy.html" aria-current="page">Privacy</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="#" class="btn btn-primary btn-sm nav-cta">Download</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#how">How it works</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="contact.html">Contact</a>
+    <a href="#" class="btn btn-primary">Download on Mac App Store</a>
+  </div>
+
+
+  <!-- ─── Content ─── -->
+  <main class="policy-main">
+    <div class="container policy-inner">
+
+      <header class="policy-header">
+        <p class="policy-eyebrow">Last updated — May 2025</p>
+        <h1 class="policy-title">Privacy Policy</h1>
+        <p class="policy-lead">
+          The short version: Levi Recorder does not collect your data, does not store
+          your audio anywhere outside your Mac, and does not know who you are.
+          The longer version is below, and we tried to keep it readable.
+        </p>
+      </header>
+
+      <div class="policy-body">
+
+        <section class="policy-section">
+          <h2>Why this policy is shorter than most</h2>
+          <p>
+            Most apps need a long privacy policy because they are doing a lot of things behind
+            the scenes — collecting analytics, syncing your data to a server, building a profile,
+            running telemetry. Levi Recorder does none of that. It is a native Mac app that
+            records audio from your microphone and your system, saves the files locally on your
+            machine, and optionally transcribes them using models that run entirely on your device.
+            There is no account to sign into, no dashboard to log into, no backend that knows
+            your name or email address. That is not a marketing claim — it is just how the app works.
+          </p>
+          <p>
+            Because of that, this policy is mostly about confirming what we do <em>not</em> do,
+            with a few honest notes about the handful of moments where the app does touch the network.
+          </p>
+        </section>
+
+        <section class="policy-section">
+          <h2>Your recordings and transcripts</h2>
+          <p>
+            When Levi records a meeting, it captures your microphone input and the audio coming from
+            your Mac — the other side of the call, music, system sounds, whatever is playing.
+            Those two streams are mixed together and saved as a compact audio file in a folder
+            you choose on your own machine. If you have transcription enabled, Levi generates a
+            plain text transcript alongside the audio, again saved locally in the same folder.
+          </p>
+          <p>
+            None of this audio ever leaves your device. It is not uploaded to a server for processing.
+            It is not sent anywhere for transcription. The recording pipeline runs entirely on your Mac,
+            from the moment you start to the moment the final file lands in your folder.
+            You can verify this by checking your network monitor — Levi makes no outbound connections
+            during recording or transcription.
+          </p>
+        </section>
+
+        <section class="policy-section">
+          <h2>The one moment we do use the network</h2>
+          <p>
+            Levi's transcription feature is powered by on-device machine learning models.
+            These models are not bundled inside the app — they are large files that would make
+            the initial download from the App Store unreasonably slow. Instead, the first time
+            you enable transcription, Levi downloads the models directly to your Mac and caches
+            them locally. After that, everything runs offline.
+          </p>
+          <p>
+            During that model download, your device connects to a content delivery server to
+            fetch the model files. No personally identifiable information is sent in that request —
+            it is a straightforward file download, the same as any software update. Once the models
+            are on your machine, that is the end of it. Levi does not phone home, does not check
+            for updates in the background, and does not send any usage data anywhere.
+          </p>
+        </section>
+
+        <section class="policy-section">
+          <h2>Purchases and the App Store</h2>
+          <p>
+            Levi Recorder is distributed through the Apple App Store. If you upgrade to Levi Pro,
+            that transaction is handled entirely by Apple. We do not see your credit card number,
+            your billing address, or any payment details. Apple processes the purchase and
+            confirms the entitlement to the app — that is the full extent of what happens.
+            If you have questions about a charge or a refund, Apple's support is the right place to go.
+          </p>
+        </section>
+
+        <section class="policy-section">
+          <h2>macOS permissions</h2>
+          <p>
+            To do its job, Levi Recorder asks macOS for a few permissions. It needs access to
+            your microphone to capture your voice, and it needs permission to tap the system audio
+            to capture the other side of a call. Both of these are standard macOS privacy prompts —
+            you will see a dialog the first time Levi needs each one, and you can revoke them at
+            any time in System Settings. Levi also asks for access to whatever folder you choose
+            as your recording destination, and it remembers that choice using a macOS
+            security-scoped bookmark so it does not need to prompt you again.
+          </p>
+          <p>
+            These permissions exist entirely on your device. Granting them does not give us
+            any access to your microphone or files — it gives the app access, which stays
+            sandboxed on your Mac.
+          </p>
+        </section>
+
+        <section class="policy-section">
+          <h2>No analytics, no crash reporting, no tracking</h2>
+          <p>
+            Levi Recorder does not include any analytics SDK, crash reporting library, or
+            third-party tracking framework. We do not know how many times you have opened the app,
+            which features you use, or whether you encountered an error. This is a deliberate
+            choice — adding that kind of instrumentation would mean sending data off your device,
+            which contradicts the whole point of the product. If you run into a bug and want to
+            tell us about it, the contact page is there for exactly that.
+          </p>
+        </section>
+
+        <section class="policy-section">
+          <h2>Children</h2>
+          <p>
+            Levi Recorder is not directed at children and we do not knowingly collect any
+            information from anyone under 13. Given that we collect no personal information
+            from anyone at all, this is mostly a formality — but it is worth stating clearly.
+          </p>
+        </section>
+
+        <section class="policy-section">
+          <h2>Changes to this policy</h2>
+          <p>
+            If something about how Levi Recorder works changes in a way that affects your privacy,
+            we will update this page and note the date at the top. We do not anticipate major changes —
+            the nature of the product makes it unlikely — but we will be upfront if anything shifts.
+          </p>
+        </section>
+
+        <section class="policy-section">
+          <h2>Questions</h2>
+          <p>
+            If you have a question about privacy that this page does not answer, or if you just
+            want to confirm something, feel free to reach out through the
+            <a href="contact.html">contact page</a>. We read every message.
+          </p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+
+  <!-- ─── Footer ─── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="index.html" class="logo" aria-label="Levi Recorder home">
+        <img src="assets/icontray-levi-recorder.svg" alt="" class="logo-tray" aria-hidden="true">
+        <span class="logo-text">levi</span>
+      </a>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="#">Mac App Store</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="footer-copy">© 2025 Levi Recorder</p>
+    </div>
+  </footer>
+
+  <script src="contact.js"></script>
+</body>
+</html>

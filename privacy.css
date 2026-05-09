@@ -1,0 +1,111 @@
+/* ─────────────────────────────────────────────
+   Levi Recorder — Privacy policy page styles
+───────────────────────────────────────────── */
+
+.policy-page .nav {
+  background: rgba(38, 38, 37, 0.96);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+.policy-page .nav-links a[aria-current="page"] {
+  color: var(--text-dark-primary);
+}
+
+/* ── Layout ── */
+.policy-main {
+  background: var(--sand);
+  min-height: 100vh;
+  padding: calc(var(--nav-h) + 72px) 0 120px;
+}
+
+.policy-inner {
+  max-width: 680px;
+}
+
+/* ── Header ── */
+.policy-header {
+  margin-bottom: 64px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--sand-border);
+}
+.policy-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm);
+  margin-bottom: 16px;
+}
+.policy-title {
+  font-size: clamp(38px, 5vw, 56px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  color: var(--text-light-primary);
+  margin-bottom: 20px;
+}
+.policy-lead {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-light-secondary);
+  max-width: 580px;
+}
+
+/* ── Body ── */
+.policy-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.policy-section {
+  padding: 44px 0;
+  border-bottom: 1px solid var(--sand-border);
+}
+.policy-section:last-child {
+  border-bottom: none;
+}
+
+.policy-section h2 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--text-light-primary);
+  margin-bottom: 18px;
+  line-height: 1.3;
+}
+
+.policy-section p {
+  font-size: 15.5px;
+  line-height: 1.82;
+  color: var(--text-light-secondary);
+  margin-bottom: 16px;
+}
+.policy-section p:last-child { margin-bottom: 0; }
+
+.policy-section em {
+  font-style: italic;
+  color: var(--text-light-primary);
+}
+
+.policy-section a {
+  color: var(--orange);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(205, 85, 0, 0.28);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+.policy-section a:hover {
+  color: var(--orange-deep);
+  border-bottom-color: var(--orange-deep);
+}
+
+/* ── Responsive ── */
+@media (max-width: 720px) {
+  .policy-main { padding: calc(var(--nav-h) + 44px) 0 80px; }
+  .policy-title { font-size: 34px; }
+  .policy-lead  { font-size: 15.5px; }
+  .policy-section { padding: 36px 0; }
+  .policy-section p { font-size: 15px; line-height: 1.75; }
+}
