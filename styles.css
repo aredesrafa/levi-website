@@ -222,6 +222,27 @@ code {
 .nav-links a:hover { color: var(--text-dark-primary); }
 .nav-cta { margin-left: auto; }
 
+/* ── Language switcher ── */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  margin-left: 8px;
+}
+.lang-btn {
+  font-family: var(--font-sans, inherit);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-dark-secondary);
+  padding: 4px 7px;
+  border-radius: 5px;
+  transition: color 0.15s, background 0.15s;
+  line-height: 1;
+}
+.lang-btn:hover { color: var(--text-dark-primary); background: rgba(255,255,255,0.07); }
+.lang-btn--active { color: var(--orange-soft); }
+
 /* Mobile toggle */
 .nav-toggle {
   display: none;
@@ -833,8 +854,8 @@ blockquote strong {
    RESPONSIVE — Mobile
 ──────────────────────── */
 @media (max-width: 720px) {
-  .nav-links { display: none; }
-  .nav-cta   { display: none; }
+  .nav-links  { display: none; }
+  .nav-cta    { display: none; }
   .nav-toggle { display: flex; }
 
   .features { padding: 68px 0; }

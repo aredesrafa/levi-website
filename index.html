@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-i18n-title="page.title">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Levi Recorder — Record meetings. Transcribe locally.</title>
-  <meta name="description" content="A native Mac menu bar recorder for mic and system audio. Local transcripts. No bots, no cloud.">
-  <meta property="og:title" content="Levi Recorder — Record meetings. Transcribe locally.">
-  <meta property="og:description" content="A native Mac menu bar recorder for mic and system audio. Local transcripts. No bots, no cloud.">
+  <meta name="description" content="A native Mac menu bar recorder for mic and system audio. Local transcripts. No bots, no cloud." data-i18n-attr="content:page.description">
+  <meta property="og:title" content="Levi Recorder — Record meetings. Transcribe locally." data-i18n-attr="content:page.title">
+  <meta property="og:description" content="A native Mac menu bar recorder for mic and system audio. Local transcripts. No bots, no cloud." data-i18n-attr="content:page.description">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,14 +25,20 @@
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#features">Features</a>
-        <a href="#how">How it works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#privacy">Privacy</a>
-        <a href="contact.html">Contact</a>
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#how" data-i18n="nav.how">How it works</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+        <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
+        <a href="contact.html" data-i18n="nav.contact">Contact</a>
       </nav>
 
-      <a href="#" class="btn btn-primary btn-sm nav-cta">Download</a>
+      <div class="lang-switcher" role="group" aria-label="Language">
+        <button class="lang-btn lang-btn--active" data-locale="en" aria-pressed="true">EN</button>
+        <button class="lang-btn" data-locale="pt-BR" aria-pressed="false">PT</button>
+        <button class="lang-btn" data-locale="es" aria-pressed="false">ES</button>
+      </div>
+
+      <a href="#" class="btn btn-primary btn-sm nav-cta" data-i18n="nav.download">Download</a>
 
       <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span>
@@ -43,12 +49,12 @@
 
   <!-- Mobile menu -->
   <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <a href="#features">Features</a>
-    <a href="#how">How it works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#privacy">Privacy</a>
-    <a href="contact.html">Contact</a>
-    <a href="#" class="btn btn-primary">Download on Mac App Store</a>
+    <a href="#features" data-i18n="nav.features">Features</a>
+    <a href="#how" data-i18n="nav.how">How it works</a>
+    <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+    <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
+    <a href="contact.html" data-i18n="nav.contact">Contact</a>
+    <a href="#" class="btn btn-primary" data-i18n="mobile.download">Download on Mac App Store</a>
   </div>
 
 
@@ -72,32 +78,32 @@
       <div class="hero-text">
         <div class="hero-badge animate-in" style="--d:0.05s">
           <span class="badge-pulse"></span>
-          Mac App Store &nbsp;·&nbsp; Free to try
+          <span data-i18n="hero.badge">Mac App Store &nbsp;·&nbsp; Free to try</span>
         </div>
 
-        <h1 class="hero-headline animate-in" style="--d:0.15s">
+        <h1 class="hero-headline animate-in" style="--d:0.15s" data-i18n-html="hero.headline">
           Record meetings.<br><span class="hero-orange">Transcribe locally.</span>
         </h1>
 
-        <p class="hero-sub animate-in" style="--d:0.25s">
+        <p class="hero-sub animate-in" style="--d:0.25s" data-i18n="hero.sub">
           A native Mac menu bar recorder for mic&nbsp;+&nbsp;system audio. No bots, no cloud account, no monthly fee.
         </p>
 
         <ul class="hero-pills animate-in" style="--d:0.32s" aria-label="Key features">
-          <li>Both sides recorded</li>
-          <li>Auto Mode</li>
-          <li>Local transcripts</li>
-          <li>One-time Pro</li>
+          <li data-i18n="hero.pill1">Both sides recorded</li>
+          <li data-i18n="hero.pill2">Auto Mode</li>
+          <li data-i18n="hero.pill3">Local transcripts</li>
+          <li data-i18n="hero.pill4">One-time Pro</li>
         </ul>
 
         <div class="hero-actions animate-in" style="--d:0.4s">
           <a href="#" class="btn btn-primary btn-lg">
             <svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2a8 8 0 1 0 0 16A8 8 0 0 0 10 2Zm-1.5 5.5 5 2.5-5 2.5v-5Z" fill="currentColor"/></svg>
-            Download on the Mac App Store
+            <span data-i18n="hero.download">Download on the Mac App Store</span>
           </a>
         </div>
 
-        <p class="hero-compat animate-in" style="--d:0.48s">
+        <p class="hero-compat animate-in" style="--d:0.48s" data-i18n="hero.compat">
           Works with Zoom, Google Meet, Teams, Slack, Discord &amp; any VoIP app
         </p>
       </div>
@@ -109,17 +115,17 @@
   <!-- ─── Feature belt ─── -->
   <div class="belt" aria-hidden="true">
     <div class="container belt-inner">
-      <span>Both sides recorded</span>
+      <span data-i18n="belt.both">Both sides recorded</span>
       <span class="sep">·</span>
-      <span>Auto Mode</span>
+      <span data-i18n="belt.auto">Auto Mode</span>
       <span class="sep">·</span>
-      <span>Local transcripts</span>
+      <span data-i18n="belt.transcripts">Local transcripts</span>
       <span class="sep">·</span>
-      <span>Noise reduction</span>
+      <span data-i18n="belt.noise">Noise reduction</span>
       <span class="sep">·</span>
-      <span>No cloud</span>
+      <span data-i18n="belt.cloud">No cloud</span>
       <span class="sep">·</span>
-      <span>One-time Pro</span>
+      <span data-i18n="belt.pro">One-time Pro</span>
     </div>
   </div>
 
@@ -128,8 +134,8 @@
   <section class="features section-warm" id="features">
     <div class="container">
       <header class="section-header">
-        <h2>One job,&nbsp;<span class="orange">done well.</span></h2>
-        <p>Everything you need from a meeting recorder. Nothing you don't.</p>
+        <h2 data-i18n-html="features.header.h2">One job,&nbsp;<span class="orange">done well.</span></h2>
+        <p data-i18n="features.header.p">Everything you need from a meeting recorder. Nothing you don't.</p>
       </header>
 
       <div class="features-grid">
@@ -143,8 +149,8 @@
               <line x1="8" y1="20.5" x2="14" y2="20.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </div>
-          <h3>Both sides recorded</h3>
-          <p>Captures your mic and the audio from your Mac in one file. No need to record separately or mix later.</p>
+          <h3 data-i18n="feat1.h3">Both sides recorded</h3>
+          <p data-i18n="feat1.p">Captures your mic and the audio from your Mac in one file. No need to record separately or mix later.</p>
         </div>
 
         <div class="feature-card reveal" style="--delay:60ms">
@@ -155,8 +161,8 @@
               <path d="M11 1v2M11 19v2M1 11h2M19 11h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </div>
-          <h3>Auto Mode</h3>
-          <p>Starts recording automatically when meeting apps use the microphone. No manual timer needed.</p>
+          <h3 data-i18n="feat2.h3">Auto Mode</h3>
+          <p data-i18n="feat2.p">Starts recording automatically when meeting apps use the microphone. No manual timer needed.</p>
         </div>
 
         <div class="feature-card reveal" style="--delay:120ms">
@@ -166,8 +172,8 @@
               <path d="M7 8h8M7 11.5h5M7 15h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </div>
-          <h3>Local transcripts</h3>
-          <p>Creates a plain <code>.txt</code> sidecar next to the <code>.m4a</code> after recording ends. Speaker labels included.</p>
+          <h3 data-i18n="feat3.h3">Local transcripts</h3>
+          <p data-i18n-html="feat3.p">Creates a plain <code>.txt</code> sidecar next to the <code>.m4a</code> after recording ends. Speaker labels included.</p>
         </div>
 
         <div class="feature-card reveal" style="--delay:0ms">
@@ -176,8 +182,8 @@
               <path d="M1.5 11S4 7.5 7 7.5c2.2 0 3.8 1.8 5 3.5s2.8 3.5 5 3.5c3 0 3.5-3.5 3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </div>
-          <h3>Noise reduction</h3>
-          <p>Cleans recordings on-device with no cloud upload. Quieter background, clearer audio from both sides.</p>
+          <h3 data-i18n="feat4.h3">Noise reduction</h3>
+          <p data-i18n="feat4.p">Cleans recordings on-device with no cloud upload. Quieter background, clearer audio from both sides.</p>
         </div>
 
         <div class="feature-card reveal" style="--delay:60ms">
@@ -188,8 +194,8 @@
               <path d="M14.5 11.5l-2 2-1-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h3>No bots, no cloud</h3>
-          <p>Recording and transcription run entirely on your Mac. Nothing is sent to any server, ever.</p>
+          <h3 data-i18n="feat5.h3">No bots, no cloud</h3>
+          <p data-i18n="feat5.p">Recording and transcription run entirely on your Mac. Nothing is sent to any server, ever.</p>
         </div>
 
         <div class="feature-card reveal" style="--delay:120ms">
@@ -200,8 +206,8 @@
               <path d="M4.5 4.5 3 3M17.5 4.5 19 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
             </svg>
           </div>
-          <h3>Stays out of the way</h3>
-          <p>A tiny menu bar icon. No main window, no Dock clutter, no constant notifications. Unlike Granola, Notion, or Krisp — Levi has no opinion about your workflow.</p>
+          <h3 data-i18n="feat6.h3">Stays out of the way</h3>
+          <p data-i18n="feat6.p">A tiny menu bar icon. No main window, no Dock clutter, no constant notifications. Unlike Granola, Notion, or Krisp — Levi has no opinion about your workflow.</p>
         </div>
 
       </div>
@@ -213,27 +219,27 @@
   <section class="how section-dark" id="how">
     <div class="container">
       <header class="section-header section-header--dark">
-        <h2>How it works.</h2>
-        <p>Three steps. No setup, no dashboard.</p>
+        <h2 data-i18n="how.header.h2">How it works.</h2>
+        <p data-i18n="how.header.p">Three steps. No setup, no dashboard.</p>
       </header>
 
       <div class="steps">
         <div class="step reveal">
           <div class="step-num" aria-hidden="true">01</div>
           <div class="step-divider" aria-hidden="true"></div>
-          <h3>Meeting starts</h3>
-          <p>Levi watches for microphone activity. The moment a meeting app activates the mic, recording begins automatically — no clicks, no timers.</p>
+          <h3 data-i18n="step1.h3">Meeting starts</h3>
+          <p data-i18n="step1.p">Levi watches for microphone activity. The moment a meeting app activates the mic, recording begins automatically — no clicks, no timers.</p>
         </div>
         <div class="step reveal" style="--delay:80ms">
           <div class="step-num" aria-hidden="true">02</div>
           <div class="step-divider" aria-hidden="true"></div>
-          <h3>Meeting ends</h3>
-          <p>When mic activity stops, Levi stops recording. The audio is mixed, optionally denoised, and saved as a compact <code>.m4a</code> — all in the background.</p>
+          <h3 data-i18n="step2.h3">Meeting ends</h3>
+          <p data-i18n-html="step2.p">When mic activity stops, Levi stops recording. The audio is mixed, optionally denoised, and saved as a compact <code>.m4a</code> — all in the background.</p>
         </div>
         <div class="step reveal" style="--delay:160ms">
           <div class="step-num" aria-hidden="true">03</div>
-          <h3>Get audio&nbsp;+&nbsp;transcript</h3>
-          <p>A <code>.m4a</code> and a <code>.txt</code> transcript with speaker labels land in your chosen folder. Ready to search, share, or archive.</p>
+          <h3 data-i18n="step3.h3">Get audio&nbsp;+&nbsp;transcript</h3>
+          <p data-i18n-html="step3.p">A <code>.m4a</code> and a <code>.txt</code> transcript with speaker labels land in your chosen folder. Ready to search, share, or archive.</p>
         </div>
       </div>
     </div>
@@ -243,8 +249,8 @@
   <!-- ─── About quote ─── -->
   <section class="about section-warm">
     <div class="container about-inner">
-      <span class="about-eyebrow">What Levi is</span>
-      <blockquote class="reveal">
+      <span class="about-eyebrow" data-i18n="about.eyebrow">What Levi is</span>
+      <blockquote class="reveal" data-i18n-html="about.quote">
         "Levi is <strong>not a meeting bot</strong> and <strong>not a cloud notes service</strong>. It's a quiet macOS
         app that captures mic and system audio, optionally cleans the recording,
         and creates a local transcript you can actually use."
@@ -263,9 +269,9 @@
         </svg>
       </div>
 
-      <h2 class="reveal">Built for your&nbsp;AI workflow.</h2>
+      <h2 class="reveal" data-i18n="privacy_section.h2">Built for your&nbsp;AI workflow.</h2>
 
-      <p class="privacy-body reveal">
+      <p class="privacy-body reveal" data-i18n="privacy_section.body">
         Transcription runs entirely on your Mac — audio never leaves your device.
         Once the transcript is ready, feed it into whichever AI you trust:
         use Claude, Gemini, ChatGPT, or any other tool to generate summaries,
@@ -274,10 +280,10 @@
       </p>
 
       <div class="privacy-tags reveal">
-        <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> No cloud account</span>
-        <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> No bots joining calls</span>
-        <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Audio stays on your Mac</span>
-        <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Works with Claude, Gemini, GPT</span>
+        <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="privacy_section.tag1">No cloud account</span></span>
+        <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="privacy_section.tag2">No bots joining calls</span></span>
+        <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="privacy_section.tag3">Audio stays on your Mac</span></span>
+        <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M5 7l1.5 1.5L9.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="privacy_section.tag4">Works with Claude, Gemini, GPT</span></span>
       </div>
     </div>
   </section>
@@ -287,38 +293,38 @@
   <section class="pricing section-warm" id="pricing">
     <div class="container">
       <header class="section-header">
-        <h2>Simple pricing.</h2>
-        <p>Start free. Pay once if you need more.</p>
+        <h2 data-i18n="pricing.header.h2">Simple pricing.</h2>
+        <p data-i18n="pricing.header.p">Start free. Pay once if you need more.</p>
       </header>
 
       <div class="pricing-cards">
         <div class="pricing-card reveal">
-          <div class="pricing-tier">Free</div>
+          <div class="pricing-tier" data-i18n="pricing.free.tier">Free</div>
           <div class="pricing-price">$0</div>
-          <p class="pricing-tagline">5 hours of automatic recording and transcription. After that, manual recording and noise reduction stay free forever.</p>
+          <p class="pricing-tagline" data-i18n="pricing.free.tagline">5 hours of automatic recording and transcription. After that, manual recording and noise reduction stay free forever.</p>
           <ul class="pricing-list">
-            <li>5 hours Auto Mode + transcription</li>
-            <li>Manual recording — unlimited, forever</li>
-            <li>Noise reduction — free forever</li>
-            <li>Mic + system audio</li>
+            <li data-i18n="pricing.free.li1">5 hours Auto Mode + transcription</li>
+            <li data-i18n="pricing.free.li2">Manual recording — unlimited, forever</li>
+            <li data-i18n="pricing.free.li3">Noise reduction — free forever</li>
+            <li data-i18n="pricing.free.li4">Mic + system audio</li>
           </ul>
-          <a href="#" class="btn btn-outline btn-full">Download free</a>
+          <a href="#" class="btn btn-outline btn-full" data-i18n="pricing.free.btn">Download free</a>
         </div>
 
         <div class="pricing-card pricing-card--pro reveal" style="--delay:80ms">
-          <div class="pricing-pro-badge">Pro</div>
-          <div class="pricing-tier">Levi Pro</div>
-          <div class="pricing-price">$34.99 <span>one-time</span></div>
-          <p class="pricing-tagline">Unlimited automatic recording and transcription with speaker labels. No subscription, ever.</p>
+          <div class="pricing-pro-badge" data-i18n="pricing.pro.badge">Pro</div>
+          <div class="pricing-tier" data-i18n="pricing.pro.tier">Levi Pro</div>
+          <div class="pricing-price">$34.99 <span data-i18n="pricing.pro.price_note">one-time</span></div>
+          <p class="pricing-tagline" data-i18n="pricing.pro.tagline">Unlimited automatic recording and transcription with speaker labels. No subscription, ever.</p>
           <ul class="pricing-list">
-            <li>Unlimited Auto Mode</li>
-            <li>Unlimited transcription</li>
-            <li>Speaker labels</li>
-            <li>Noise reduction</li>
-            <li>Priority support</li>
+            <li data-i18n="pricing.pro.li1">Unlimited Auto Mode</li>
+            <li data-i18n="pricing.pro.li2">Unlimited transcription</li>
+            <li data-i18n="pricing.pro.li3">Speaker labels</li>
+            <li data-i18n="pricing.pro.li4">Noise reduction</li>
+            <li data-i18n="pricing.pro.li5">Priority support</li>
           </ul>
-          <a href="#" class="btn btn-primary btn-full">Upgrade to Pro</a>
-          <p class="pricing-fine">No subscription. Pay once, own it forever.</p>
+          <a href="#" class="btn btn-primary btn-full" data-i18n="pricing.pro.btn">Upgrade to Pro</a>
+          <p class="pricing-fine" data-i18n="pricing.pro.fine">No subscription. Pay once, own it forever.</p>
         </div>
       </div>
     </div>
@@ -329,10 +335,10 @@
   <section class="cta-section section-hero">
     <div class="container cta-inner">
       <img src="assets/icon-levi-app-dark.png" alt="Levi Recorder icon" class="cta-icon" width="72" height="72">
-      <h2 class="reveal">Never lose what&nbsp;was said.</h2>
-      <p class="reveal">Download Levi Recorder and try it free on your Mac.</p>
-      <a href="#" class="btn btn-primary btn-lg reveal">Download on the Mac App Store</a>
-      <p class="cta-fine reveal">macOS 14.4 or later · Free with optional one-time Pro upgrade</p>
+      <h2 class="reveal" data-i18n="cta.h2">Never lose what&nbsp;was said.</h2>
+      <p class="reveal" data-i18n="cta.p">Download Levi Recorder and try it free on your Mac.</p>
+      <a href="#" class="btn btn-primary btn-lg reveal" data-i18n="cta.btn">Download on the Mac App Store</a>
+      <p class="cta-fine reveal" data-i18n="cta.fine">macOS 14.4 or later · Free with optional one-time Pro upgrade</p>
     </div>
   </section>
 
@@ -345,14 +351,15 @@
         <span class="logo-text">levi</span>
       </a>
       <nav class="footer-links" aria-label="Footer navigation">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="#">Mac App Store</a>
-        <a href="contact.html">Contact</a>
+        <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+        <a href="#" data-i18n="footer.appstore">Mac App Store</a>
+        <a href="contact.html" data-i18n="footer.contact">Contact</a>
       </nav>
-      <p class="footer-copy">© 2025 Levi Recorder</p>
+      <p class="footer-copy" data-i18n="footer.copy">© 2025 Levi Recorder</p>
     </div>
   </footer>
 
+  <script src="i18n.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

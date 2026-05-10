@@ -58,7 +58,7 @@ form?.addEventListener('submit', async e => {
   const submitBtn   = form.querySelector('.form-submit');
   const originalHTML = submitBtn.innerHTML;
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending…';
+  submitBtn.querySelector('span').textContent = window.t('contact.sending') || 'Sending…';
   formError.hidden = true;
 
   const controller = new AbortController();
@@ -81,14 +81,14 @@ form?.addEventListener('submit', async e => {
     } else {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalHTML;
-      formError.textContent = data.message || 'Something went wrong. Please try again.';
+      formError.textContent = data.message || window.t('contact.err.generic') || 'Something went wrong. Please try again.';
       formError.hidden = false;
     }
   } catch {
     clearTimeout(timeout);
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalHTML;
-    formError.textContent = 'Could not send message. Please check your connection and try again.';
+    formError.textContent = window.t('contact.err.connection') || 'Could not send message. Please check your connection and try again.';
     formError.hidden = false;
   }
 });
