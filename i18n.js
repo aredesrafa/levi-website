@@ -46,9 +46,9 @@ function applyTranslations(t) {
 }
 
 function updateSwitcher(locale) {
-  document.querySelectorAll('.lang-btn').forEach(btn => {
+  document.querySelectorAll('.lang-option').forEach(btn => {
     const active = btn.dataset.locale === locale;
-    btn.classList.toggle('lang-btn--active', active);
+    btn.classList.toggle('lang-option--active', active);
     btn.setAttribute('aria-pressed', String(active));
   });
 }
@@ -72,9 +72,39 @@ async function setLocale(locale) {
   }
 }
 
+function openLangModal() {
+  const modal = document.getElementById('lang-modal');
+  if (modal) {
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function closeLangModal() {
+  const modal = document.getElementById('lang-modal');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+}
+
 document.addEventListener('click', e => {
-  const btn = e.target.closest('.lang-btn');
-  if (btn?.dataset.locale) setLocale(btn.dataset.locale);
+  // Handle language option selection
+  const option = e.target.closest('.lang-option');
+  if (option?.dataset.locale) {
+    setLocale(option.dataset.locale);
+    closeLangModal();
+  }
+
+  // Handle modal trigger
+  if (e.target.closest('.lang-btn-globe')) {
+    openLangModal();
+  }
+
+  // Handle modal close
+  if (e.target.closest('[data-close-modal]') || e.target.closest('.lang-modal-close')) {
+    closeLangModal();
+  }
 });
 
 setLocale(detectLocale());
