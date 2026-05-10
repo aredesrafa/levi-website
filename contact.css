@@ -142,7 +142,19 @@
   margin-top: -8px;
 }
 
+.form-error {
+  font-size: 13px;
+  color: rgba(228, 93, 96, 0.9);
+  margin-top: -8px;
+}
+.form-error[hidden] {
+  display: none;
+}
+
 /* ── Success state ── */
+.contact-success[hidden] {
+  display: none;
+}
 .contact-success {
   display: flex;
   flex-direction: column;

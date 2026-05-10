@@ -38,13 +38,13 @@ tabs.forEach(tab => {
 });
 
 // ── Form submit with success state ──
-const form    = document.getElementById('contactForm');
-const success = document.getElementById('contactSuccess');
+const form      = document.getElementById('contactForm');
+const success   = document.getElementById('contactSuccess');
+const formError = document.getElementById('formError');
 
 form?.addEventListener('submit', async e => {
   e.preventDefault();
 
-  // Basic client-side validation
   let valid = true;
   form.querySelectorAll('[required]').forEach(field => {
     field.classList.remove('error');
@@ -55,29 +55,41 @@ form?.addEventListener('submit', async e => {
   });
   if (!valid) return;
 
-  const submitBtn = form.querySelector('.form-submit');
+  const submitBtn   = form.querySelector('.form-submit');
+  const originalHTML = submitBtn.innerHTML;
   submitBtn.disabled = true;
   submitBtn.textContent = 'Sending…';
+  formError.hidden = true;
+
+  const controller = new AbortController();
+  const timeout    = setTimeout(() => controller.abort(), 10000);
 
   try {
     const res = await fetch(form.action, {
       method: 'POST',
       body: new FormData(form),
       headers: { Accept: 'application/json' },
+      signal: controller.signal,
     });
+    clearTimeout(timeout);
 
-    if (res.ok) {
-      form.hidden = true;
+    const data = await res.json();
+
+    if (res.ok && data.success) {
+      form.hidden    = true;
       success.hidden = false;
     } else {
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Send message';
-      alert('Something went wrong. Please try again or email us directly.');
+      submitBtn.innerHTML = originalHTML;
+      formError.textContent = data.message || 'Something went wrong. Please try again.';
+      formError.hidden = false;
     }
   } catch {
+    clearTimeout(timeout);
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Send message';
-    alert('Could not send message. Please check your connection and try again.');
+    submitBtn.innerHTML = originalHTML;
+    formError.textContent = 'Could not send message. Please check your connection and try again.';
+    formError.hidden = false;
   }
 });
 
