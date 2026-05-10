@@ -12,15 +12,8 @@ navToggle?.addEventListener('click', () => {
 });
 
 // ── Type tabs ──
-const tabs      = document.querySelectorAll('.contact-tab');
-const subjectEl = document.getElementById('formSubject');
-const typeEl    = document.getElementById('formType');
-
-const labels = {
-  feedback: 'Feedback — Levi Recorder',
-  support:  'Support — Levi Recorder',
-  contact:  'Contact — Levi Recorder',
-};
+const tabs   = document.querySelectorAll('.contact-tab');
+const typeEl = document.getElementById('formType');
 
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
@@ -31,9 +24,7 @@ tabs.forEach(tab => {
     tab.classList.add('active');
     tab.setAttribute('aria-selected', 'true');
 
-    const type = tab.dataset.type;
-    subjectEl.value = labels[type];
-    typeEl.value    = type;
+    typeEl.value = tab.dataset.type;
   });
 });
 

@@ -76,17 +76,13 @@
       <!-- Form -->
       <form
         class="contact-form"
-        action="https://api.web3forms.com/submit"
+        action="https://levi-contact.infinitybuilder.workers.dev"
         method="POST"
         novalidate
         id="contactForm"
       >
-        <input type="hidden" name="access_key" value="f98bc7f0-8515-4e77-94d8-c435218c859d">
-        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-        <input type="hidden" name="_subject" id="formSubject" value="Feedback — Levi Recorder">
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off">
         <input type="hidden" name="type" id="formType" value="feedback">
-        <input type="hidden" name="from_name" value="Levi Recorder">
-        <input type="hidden" name="_autoresponse" value="Hi! Thanks for reaching out — we received your message and will get back to you as soon as we can. — The Levi Recorder team">
 
         <div class="form-field">
           <label for="name" data-i18n="contact.form.name_label">Name</label>
