@@ -1,6 +1,6 @@
 /* Levi Recorder — i18n engine */
 
-const SUPPORTED = ['en', 'pt-BR', 'es'];
+const SUPPORTED = ['en', 'pt-BR', 'es', 'it', 'fr'];
 const DEFAULT_LOCALE = 'en';
 
 let translations = {};
