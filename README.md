@@ -1,0 +1,119 @@
+# Levi Recorder — Marketing Website
+
+Static marketing site for **Levi Meeting Audio Recorder**, served at
+**https://levirecorder.app**. Plain HTML/CSS/JS (no framework, no build step)
+plus a small Cloudflare Worker that backs the contact form.
+
+## Stack
+
+- **Static pages:** `index.html`, `contact.html`, `privacy.html`.
+- **Styles:** `styles.css` (home), `contact.css`, `privacy.css`.
+- **Scripts:** `script.js` (home interactions + conversion tracking),
+  `contact.js` (contact form), `i18n.js` (localization).
+- **Localization:** `locales/*.json` (en, pt-BR, es, it, fr) loaded by `i18n.js`.
+- **Contact backend:** `worker/` — Cloudflare Worker `levi-contact` that
+  receives the form POST and sends mail via the Resend API.
+
+## Local development
+
+It is a static site, so any static server works:
+
+```bash
+python3 -m http.server 8000   # then open http://localhost:8000
+```
+
+`localhost:8000` / `127.0.0.1:8000` are already in the Worker's CORS allow-list,
+so the contact form works locally against the deployed Worker.
+
+## Deploy
+
+- **Site:** hosted on **GitHub Pages**. Pushing to **`main`** triggers the
+  automatic Pages build/publish — there is no `.github/workflows`; Pages serves
+  the branch directly. The custom domain is pinned by the `CNAME` file
+  (`levirecorder.app`).
+- **Contact Worker:** deployed separately with Wrangler from `worker/`:
+
+  ```bash
+  cd worker && npx wrangler deploy
+  ```
+
+  The Worker needs a `RESEND_API_KEY` secret (`npx wrangler secret put
+  RESEND_API_KEY`). The form posts to
+  `https://levi-contact.infinitybuilder.workers.dev`.
+
+## Analytics & conversion tracking
+
+Three trackers are loaded on every page (see the `<head>` of each `.html`):
+
+| Tool             | ID                         | Purpose                              |
+| ---------------- | -------------------------- | ------------------------------------ |
+| Google Analytics | `G-3L5J12BFJ0`             | GA4 traffic/behavior                 |
+| Google Ads       | `AW-18232657346`           | Conversion tracking for paid traffic |
+| Microsoft Clarity| `wulz7uk3oy`               | Session heatmaps/recordings          |
+
+### macOS Download conversion (Google Ads)
+
+The key paid-campaign signal is a **download click from a real macOS visitor**.
+It is implemented in `script.js` (`leviIsRealMac()` + a delegated click listener
+on every `a[href*="apps.apple.com"]`):
+
+- Fires **only** when the visitor is on real macOS — explicitly excludes
+  iPhone/iPad/Android/Windows, including iPadOS Safari which masquerades as Mac
+  (filtered via `navigator.maxTouchPoints`).
+- On a qualifying click it sends two events:
+  ```js
+  gtag('event', 'conversion', { send_to: 'AW-18232657346/UoHVCI3Krb4cEMKLgfZD' });
+  gtag('event', 'download_click_macos', { link_location: '…' });
+  ```
+- The `conversion` event feeds the Google Ads conversion action
+  **"macOS Download Click"** (category *Inscrição / Sign-up*, primary, count
+  *One*, 90-day click window, data-driven attribution, value 1).
+- Ad-click attribution is handled by Google automatically via the `gclid`
+  (auto-tagging is on); we do **not** gate on it. Google only counts clicks that
+  carried a `gclid` within the conversion window.
+- The `download_click_macos` GA4 event is currently for analysis only. It can be
+  marked as a GA4 Key Event and imported into Ads later if we move off the native
+  conversion (do **not** run both as Primary for the same action — that
+  double-counts).
+
+> We cannot measure the *actual* App Store install from the website — the Mac App
+> Store has no install postback to Google Ads. The download click is the proxy
+> conversion. To estimate real installs, see App Store campaign tracking below.
+
+### App Store campaign tracking
+
+All Download links point to the Mac App Store with `?ct=website&mt=12`. The `ct`
+(campaign text) shows up in **App Store Connect → Analytics → Acquisition**, and
+`mt=12` routes to the Mac App Store. Use a distinct `ct` per channel to compare
+sources.
+
+## Pending manual steps / things to remember
+
+These are **not** in code and must be done in the respective consoles:
+
+- [ ] **Google Ads — ad Final URL:** set ad destination to
+      `https://apps.apple.com/us/app/levi-meeting-audio-recorder/id6765791159?ct=googleads&mt=12`
+      so App Store Connect can attribute real installs to Google Ads.
+- [ ] **Google Ads — campaign goal:** ensure the **Inscrição** goal (which holds
+      `macOS Download Click`) is active on the campaigns. It is set as an
+      account-default goal, so it should apply automatically.
+- [ ] **Google Ads status:** the conversion shows *"Configuração incorreta"*
+      until the first real conversions (clicks carrying a `gclid`) arrive — this
+      clears on its own (up to ~24h). Verify with **Google Tag Assistant** on a
+      Mac: load the site, click Download, confirm the `conversion` hit with
+      `send_to: AW-18232657346/UoHVCI3Krb4cEMKLgfZD`.
+- [ ] **Microsoft Clarity:** the `clarity.ms` tag was observed returning `503` on
+      load (likely transient). Re-check that sessions are recording.
+
+## File map
+
+```
+index.html / contact.html / privacy.html   pages
+styles.css / contact.css / privacy.css      styles
+script.js                                    home + conversion tracking
+contact.js                                   contact form
+i18n.js + locales/*.json                     localization (en, pt-BR, es, it, fr)
+assets/                                       images, logos, icons
+worker/                                       Cloudflare Worker (contact → Resend)
+CNAME                                         custom domain (levirecorder.app)
+```
