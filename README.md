@@ -82,18 +82,33 @@ on every `a[href*="apps.apple.com"]`):
 
 ### App Store campaign tracking
 
-All Download links point to the Mac App Store with `?ct=website&mt=12`. The `ct`
-(campaign text) shows up in **App Store Connect → Analytics → Acquisition**, and
-`mt=12` routes to the Mac App Store. Use a distinct `ct` per channel to compare
-sources.
+Download links default to `?ct=website&mt=12`. The `ct` (campaign text) shows up
+in **App Store Connect → Analytics → Acquisition**, and `mt=12` routes to the Mac
+App Store.
+
+To attribute *installs* to a paid channel, the campaign flows through the site,
+not straight to the App Store (the visitor must land on the site for the macOS
+download conversion to fire):
+
+```
+ad  →  levirecorder.app/?ct=googleads  →  apps.apple.com/...?ct=googleads&mt=12
+```
+
+`script.js` reads an incoming `ct` (and optional `pt`) from the landing URL and
+**rewrites every App Store link** to carry that token, overriding the default
+`ct=website`. Without this the token would stay on the landing page and never
+reach the App Store, so paid installs would be miscredited to "website".
 
 ## Pending manual steps / things to remember
 
 These are **not** in code and must be done in the respective consoles:
 
-- [ ] **Google Ads — ad Final URL:** set ad destination to
-      `https://apps.apple.com/us/app/levi-meeting-audio-recorder/id6765791159?ct=googleads&mt=12`
-      so App Store Connect can attribute real installs to Google Ads.
+- [ ] **Google Ads — Final URL + suffix:** set the ad **Final URL** to the site
+      (`https://levirecorder.app/`), not the App Store directly, so the visitor
+      lands on the site and the conversion can fire. Put the campaign token in the
+      **Final URL suffix**: `ct=googleads` (plus any `utm_*` you want). The site
+      then propagates `ct` to the App Store link (see App Store campaign tracking
+      above). `mt=12` is an App Store param and is not needed on the site URL.
 - [ ] **Google Ads — campaign goal:** ensure the **Inscrição** goal (which holds
       `macOS Download Click`) is active on the campaigns. It is set as an
       account-default goal, so it should apply automatically.

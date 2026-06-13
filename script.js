@@ -45,6 +45,26 @@ document.querySelectorAll('a[href="#"]').forEach(a => {
   a.addEventListener('click', e => e.preventDefault());
 });
 
+// ── App Store campaign attribution ──
+// Mac App Store links default to ct=website. When a visitor arrives with an
+// Apple campaign token on the landing URL (e.g. ?ct=googleads from a Google Ads
+// Final URL), propagate it to every App Store link so App Store Connect
+// attributes the install to that campaign instead of "website". Also forwards
+// the optional provider token (pt). Without this the token never reaches the
+// App Store and paid installs would be miscredited to organic/website.
+(() => {
+  const params = new URLSearchParams(location.search);
+  const ct = params.get('ct');
+  const pt = params.get('pt');
+  if (!ct && !pt) return;
+  document.querySelectorAll('a[href*="apps.apple.com"]').forEach(link => {
+    const url = new URL(link.href);
+    if (ct) url.searchParams.set('ct', ct);
+    if (pt) url.searchParams.set('pt', pt);
+    link.href = url.toString();
+  });
+})();
+
 // ── Conversion: macOS Download click ──
 // Fires a Google Ads conversion + GA4 event only when the visitor is on real
 // macOS (not iPhone/iPad/Android/Windows) and clicks a Mac App Store link.
