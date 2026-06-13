@@ -44,3 +44,38 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 document.querySelectorAll('a[href="#"]').forEach(a => {
   a.addEventListener('click', e => e.preventDefault());
 });
+
+// ── Conversion: macOS Download click ──
+// Fires a Google Ads conversion + GA4 event only when the visitor is on real
+// macOS (not iPhone/iPad/Android/Windows) and clicks a Mac App Store link.
+// Google Ads only attributes the conversion to clicks that carried a gclid
+// within the conversion window, so we fire for every qualifying macOS click
+// and let Google handle ad-click attribution.
+function leviIsRealMac() {
+  const ua = navigator.userAgent || '';
+  const platform =
+    (navigator.userAgentData && navigator.userAgentData.platform) ||
+    navigator.platform ||
+    '';
+  const looksMac = /Mac/i.test(platform) || /Macintosh|Mac OS X/i.test(ua);
+  // iPadOS Safari reports as "Mac"; a real Mac has no multi-touch screen.
+  const isTouchDevice = navigator.maxTouchPoints > 1;
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(ua);
+  return looksMac && !isTouchDevice && !isMobile;
+}
+
+const leviOnMac = leviIsRealMac();
+
+document.querySelectorAll('a[href*="apps.apple.com"]').forEach(link => {
+  link.addEventListener('click', () => {
+    if (!leviOnMac || typeof gtag !== 'function') return;
+    // Google Ads conversion (macOS Download Click)
+    gtag('event', 'conversion', {
+      send_to: 'AW-18232657346/UoHVCI3Krb4cEMKLgfZD'
+    });
+    // GA4 event for analysis / optional future key-event import
+    gtag('event', 'download_click_macos', {
+      link_location: link.closest('section')?.id || link.className || 'unknown'
+    });
+  });
+});
