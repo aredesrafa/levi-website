@@ -43,13 +43,14 @@ so the contact form works locally against the deployed Worker.
 
 ## Analytics & conversion tracking
 
-Three trackers are loaded on every page (see the `<head>` of each `.html`):
+Four trackers are loaded on every page (see the `<head>` of each `.html`):
 
 | Tool             | ID                         | Purpose                              |
 | ---------------- | -------------------------- | ------------------------------------ |
 | Google Analytics | `G-3L5J12BFJ0`             | GA4 traffic/behavior                 |
 | Google Ads       | `AW-18232657346`           | Conversion tracking for paid traffic |
 | Microsoft Clarity| `wulz7uk3oy`               | Session heatmaps/recordings          |
+| Reddit Pixel     | `a2_j6ez7imlu8si`          | Reddit Ads conversion tracking       |
 
 ### macOS Download conversion (Google Ads)
 
@@ -79,6 +80,36 @@ on every `a[href*="apps.apple.com"]`):
 > We cannot measure the *actual* App Store install from the website — the Mac App
 > Store has no install postback to Google Ads. The download click is the proxy
 > conversion. To estimate real installs, see App Store campaign tracking below.
+
+### macOS Download conversion (Reddit Ads)
+
+Mirrors the Google Ads setup, in the **same** click listener in `script.js`, so
+the same real-macOS gate (`leviIsRealMac()`) applies — no double-firing on
+iPad/iPhone/Android/Windows.
+
+- The **Reddit Pixel** base code lives in the `<head>` of every page and fires
+  `rdt('track','PageVisit')` on load (analogous to the GA4 pageview).
+- On a qualifying macOS download click it sends a **custom conversion event**:
+  ```js
+  rdt('track', 'Custom', { customEventName: 'Download', conversionId: '<uuid>' });
+  ```
+- `conversionId` is a fresh UUID per click. It exists for **pixel ⇄ Conversions
+  API deduplication**: if a server-side CAPI event is ever added for the same
+  click, send the same id as its `conversion_id`.
+- Ad-click attribution is automatic — the pixel stores the Reddit click id
+  (`rdt_cid`) from the landing URL/cookie and attaches it.
+- In **Reddit Events Manager**, map the custom event **`Download`** as the
+  campaign's conversion event (the `TRAFFIC` campaign objective can then optimize
+  toward it). From 2026-07-13, ad groups/CBO campaigns require a
+  `conversion_pixel_id` — this pixel `a2_j6ez7imlu8si` is it.
+
+> **Conversions API (CAPI) token is intentionally NOT in this repo.** The token
+> from Reddit's setup is a **server-side secret**; embedding it in a static site
+> would leak it publicly. Only the client-side pixel (public `pixel_id`) is
+> installed here. If we later want server-side CAPI events
+> (`POST /api/v3/pixels/a2_j6ez7imlu8si/conversion_events`), do it from the
+> Cloudflare `worker/` with the token stored as a secret env var, reusing the
+> `conversionId` above for dedup.
 
 ### App Store campaign tracking
 

@@ -86,16 +86,34 @@ function leviIsRealMac() {
 
 const leviOnMac = leviIsRealMac();
 
+// Unique id per conversion. If a server-side Conversions API event is ever
+// added for the same click, send this same id as its conversion_id so Reddit
+// deduplicates the pixel + CAPI events.
+function leviConversionId() {
+  return (crypto?.randomUUID?.()) || (Date.now() + '-' + Math.random().toString(16).slice(2));
+}
+
 document.querySelectorAll('a[href*="apps.apple.com"]').forEach(link => {
   link.addEventListener('click', () => {
-    if (!leviOnMac || typeof gtag !== 'function') return;
-    // Google Ads conversion (macOS Download Click)
-    gtag('event', 'conversion', {
-      send_to: 'AW-18232657346/UoHVCI3Krb4cEMKLgfZD'
-    });
-    // GA4 event for analysis / optional future key-event import
-    gtag('event', 'download_click_macos', {
-      link_location: link.closest('section')?.id || link.className || 'unknown'
-    });
+    if (!leviOnMac) return;
+    const where = link.closest('section')?.id || link.className || 'unknown';
+
+    // Google Ads conversion + GA4 event (macOS Download Click).
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', {
+        send_to: 'AW-18232657346/UoHVCI3Krb4cEMKLgfZD'
+      });
+      gtag('event', 'download_click_macos', { link_location: where });
+    }
+
+    // Reddit Pixel conversion (macOS Download Click). Custom event "Download";
+    // conversionId enables pixel/CAPI deduplication. Reddit auto-attaches the
+    // ad click id (rdt_cid) it stored from the landing URL/cookie.
+    if (typeof rdt === 'function') {
+      rdt('track', 'Custom', {
+        customEventName: 'Download',
+        conversionId: leviConversionId()
+      });
+    }
   });
 });
