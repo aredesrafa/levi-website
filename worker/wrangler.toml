@@ -5,9 +5,12 @@ compatibility_date = "2026-05-10"
 [vars]
 # Comma-separated addresses and/or bare domains that never reach the inbox.
 # Add the offender here and redeploy; no code change needed.
-BLOCKED_SENDERS = ""
+# These four are the June 2026 contact-form spam wave. They sit on major
+# consumer domains, so they must be blocked per address, never per domain.
+BLOCKED_SENDERS = "tristan.mueller@gmx.net, olgaryan@gmail.com, annapenny29@aol.com, darvic1@msn.com"
 
-# Max 3 submissions per minute per IP. `period` only accepts 10 or 60.
+# Burst guard: 3 submissions/min per IP. `period` only accepts 10 or 60, which
+# is why the 5/day cap lives in KV instead.
 [[ratelimits]]
 name = "CONTACT_RATE_LIMITER"
 namespace_id = "1001"
@@ -15,3 +18,8 @@ namespace_id = "1001"
   [ratelimits.simple]
   limit = 3
   period = 60
+
+# Backs the DAILY_LIMIT_PER_IP counter in src/index.js.
+[[kv_namespaces]]
+binding = "CONTACT_QUOTA"
+id = "ffebefcda2b14dfa8a3aeee2e2e031cb"

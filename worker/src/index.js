@@ -12,6 +12,8 @@ const FROM = 'Levi Recorder <team@levirecorder.app>';
 // contact form is used for bug reports and questions, not link sharing.
 const MAX_LINKS_IN_MESSAGE = 3;
 
+const DAILY_LIMIT_PER_IP = 5;
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
@@ -33,13 +35,21 @@ export default {
     }
 
     // Rate limit before reading the body so a flood costs as little as possible.
+    const clientKey = rateLimitKey(request.headers.get('CF-Connecting-IP') || 'unknown');
+
+    // Burst guard first: it is free, and it keeps a flood from burning through
+    // the KV write quota that backs the daily cap below.
     if (env.CONTACT_RATE_LIMITER) {
-      const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-      const { success: withinLimit } = await env.CONTACT_RATE_LIMITER.limit({ key: ip });
-      if (!withinLimit) {
-        console.log('Rate limited:', ip);
+      const { success: withinBurst } = await env.CONTACT_RATE_LIMITER.limit({ key: clientKey });
+      if (!withinBurst) {
+        console.log('Burst limited:', clientKey);
         return json({ success: false, message: 'Too many messages. Please try again in a minute.' }, 429, cors);
       }
+    }
+
+    if (!(await withinDailyQuota(env, clientKey))) {
+      console.log('Daily quota reached:', clientKey);
+      return json({ success: false, message: 'Daily message limit reached. Please try again tomorrow.' }, 429, cors);
     }
 
     let body;
@@ -129,6 +139,33 @@ export default {
     return json({ success: true }, 200, cors);
   },
 };
+
+// A spammer rotates freely inside their own IPv6 /64, so both limiters key on
+// the prefix rather than the full address. IPv4 is used as-is.
+function rateLimitKey(ip) {
+  if (!ip.includes(':')) return ip;
+  return ip.split(':').slice(0, 4).join(':');
+}
+
+// The ratelimit binding only accepts a 10s or 60s window, so the daily cap is a
+// KV counter. Reads can be up to a minute stale, which lets a burst slip a few
+// past the cap — the 3/min burst guard is what bounds that overshoot.
+async function withinDailyQuota(env, clientKey) {
+  if (!env.CONTACT_QUOTA) return true;
+
+  const key = `quota:${new Date().toISOString().slice(0, 10)}:${clientKey}`;
+  try {
+    const count = Number(await env.CONTACT_QUOTA.get(key)) || 0;
+    if (count >= DAILY_LIMIT_PER_IP) return false;
+    // The TTL keeps the namespace self-cleaning; 86400 is KV's minimum.
+    await env.CONTACT_QUOTA.put(key, String(count + 1), { expirationTtl: 86400 });
+    return true;
+  } catch (err) {
+    // Fail open: a KV outage must not take the contact form down with it.
+    console.error('Daily quota check failed:', String(err));
+    return true;
+  }
+}
 
 // BLOCKED_SENDERS is a comma-separated list of full addresses ("bot@spam.com")
 // and bare domains ("spam.com"), so blocking a new spammer is a var edit plus a

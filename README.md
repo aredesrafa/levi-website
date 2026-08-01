@@ -50,9 +50,19 @@ suppression entry cannot stop either one.
 | Control | Where | Behaviour |
 | --- | --- | --- |
 | Honeypot | `botcheck` field | Silently accepted, nothing sent |
-| Rate limit | `CONTACT_RATE_LIMITER` binding | 3 submissions/min per IP, then `429` |
+| Burst limit | `CONTACT_RATE_LIMITER` binding | 3 submissions/min per IP, then `429` |
+| Daily quota | `CONTACT_QUOTA` KV namespace | 5 submissions/day per IP, then `429` |
 | Sender blocklist | `BLOCKED_SENDERS` var | Silently accepted, nothing sent |
 | Link flood | `MAX_LINKS_IN_MESSAGE` | More than 3 links is silently dropped |
+
+Both limiters key on the IPv4 address, or on the **/64 prefix** for IPv6, since
+a sender rotates freely inside their own /64.
+
+The daily quota is a KV counter because the `ratelimit` binding only accepts a
+10s or 60s window. KV reads can be up to a minute stale, so a burst may slip a
+few past the cap — the 3/min burst guard is what bounds that overshoot, and it
+also keeps a flood from exhausting the KV write quota. If KV fails, the quota
+check fails open so an outage cannot take the contact form down.
 
 To block an address or a whole domain, edit `BLOCKED_SENDERS` in
 `worker/wrangler.toml` and redeploy:
