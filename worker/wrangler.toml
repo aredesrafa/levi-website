@@ -1,3 +1,17 @@
 name = "levi-contact"
 main = "src/index.js"
 compatibility_date = "2026-05-10"
+
+[vars]
+# Comma-separated addresses and/or bare domains that never reach the inbox.
+# Add the offender here and redeploy; no code change needed.
+BLOCKED_SENDERS = ""
+
+# Max 3 submissions per minute per IP. `period` only accepts 10 or 60.
+[[ratelimits]]
+name = "CONTACT_RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 3
+  period = 60

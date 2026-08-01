@@ -41,6 +41,33 @@ so the contact form works locally against the deployed Worker.
   RESEND_API_KEY`). The form posts to
   `https://levi-contact.infinitybuilder.workers.dev`.
 
+### Contact form spam controls
+
+The Worker drops spam before it reaches Resend, since both the inbox
+notification and the auto-confirmation are sent by our own domain — a Resend
+suppression entry cannot stop either one.
+
+| Control | Where | Behaviour |
+| --- | --- | --- |
+| Honeypot | `botcheck` field | Silently accepted, nothing sent |
+| Rate limit | `CONTACT_RATE_LIMITER` binding | 3 submissions/min per IP, then `429` |
+| Sender blocklist | `BLOCKED_SENDERS` var | Silently accepted, nothing sent |
+| Link flood | `MAX_LINKS_IN_MESSAGE` | More than 3 links is silently dropped |
+
+To block an address or a whole domain, edit `BLOCKED_SENDERS` in
+`worker/wrangler.toml` and redeploy:
+
+```toml
+BLOCKED_SENDERS = "bot@spam.com, casino.ru"
+```
+
+Entries match the full address or the bare domain, are case-insensitive, and
+ignore plus-addressing (`bot+tag@spam.com` is caught by `bot@spam.com`).
+
+Blocked submissions return `success: true` on purpose — a bot that sees a
+rejection starts probing for the rule that stopped it. Drops are visible in
+`npx wrangler tail`.
+
 ## Analytics & conversion tracking
 
 Four trackers are loaded on every page (see the `<head>` of each `.html`):
