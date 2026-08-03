@@ -43,17 +43,46 @@ so the contact form works locally against the deployed Worker.
 
 ### Contact form spam controls
 
-The Worker drops spam before it reaches Resend, since both the inbox
-notification and the auto-confirmation are sent by our own domain — a Resend
-suppression entry cannot stop either one.
+In August 2026 a bot drove this form as an **open spam relay**: it submitted in
+a loop with a rotating sender address, and the Worker's auto-confirmation
+mailed "We received your message" to each of those third-party addresses.
+Two rules came out of that and must not be relaxed:
+
+1. **Never send email to an address that came from the form.** The form is
+   unauthenticated, so that address is unverified and may belong to anyone.
+   The submitter gets the on-page success state, not an email.
+2. **A submission that cannot be proven human does not send.** Turnstile
+   failing, erroring, or being unconfigured all reject the submission.
+
+The Worker drops spam before it reaches Resend, since every email it sends comes
+from our own domain — a Resend suppression entry cannot stop the inbox
+notification, which is addressed to us.
 
 | Control | Where | Behaviour |
 | --- | --- | --- |
+| Kill switch | `CONTACT_FORM_ENABLED` var | `"0"` → `503`, nothing sent, checked first |
+| Bot check | Turnstile + `TURNSTILE_SECRET_KEY` | Fail/error/unconfigured → `403`/`503` |
 | Honeypot | `botcheck` field | Silently accepted, nothing sent |
 | Burst limit | `CONTACT_RATE_LIMITER` binding | 3 submissions/min per IP, then `429` |
 | Daily quota | `CONTACT_QUOTA` KV namespace | 5 submissions/day per IP, then `429` |
 | Sender blocklist | `BLOCKED_SENDERS` var | Silently accepted, nothing sent |
 | Link flood | `MAX_LINKS_IN_MESSAGE` | More than 3 links is silently dropped |
+
+A blocklist only catches addresses that repeat, so it is the weakest control
+here — the August bot never reused one. Turnstile is what actually stops that.
+
+### Turnstile setup
+
+1. Create a widget for `levirecorder.app` in the Cloudflare dashboard
+   (Turnstile → Add widget).
+2. Put the **site key** in `contact.html`, replacing
+   `TURNSTILE_SITEKEY_PLACEHOLDER` on the `.cf-turnstile` div. It is public.
+3. Give the Worker the **secret key**:
+   `cd worker && npx wrangler secret put TURNSTILE_SECRET_KEY`.
+4. Flip `CONTACT_FORM_ENABLED` to `"1"` and redeploy.
+
+Tokens are single-use, so `contact.js` calls `turnstile.reset()` after every
+failed submit; without that, a retry would reuse a spent token and always fail.
 
 Both limiters key on the IPv4 address, or on the **/64 prefix** for IPv6, since
 a sender rotates freely inside their own /64.

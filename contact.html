@@ -142,6 +142,15 @@
           ></textarea>
         </div>
 
+        <!-- Turnstile. Swap data-sitekey for the real key from the Cloudflare
+             dashboard; the matching secret lives in the Worker. -->
+        <div
+          class="cf-turnstile form-field"
+          data-sitekey="TURNSTILE_SITEKEY_PLACEHOLDER"
+          data-theme="auto"
+          data-action="contact"
+        ></div>
+
         <button type="submit" class="btn btn-primary btn-lg form-submit">
           <span data-i18n="contact.form.submit">Send message</span>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -203,6 +212,7 @@
     </div>
   </div>
 
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <script src="i18n.js"></script>
   <script src="contact.js"></script>
 </body>

@@ -74,6 +74,7 @@ form?.addEventListener('submit', async e => {
       submitBtn.innerHTML = originalHTML;
       formError.textContent = data.message || window.t('contact.err.generic') || 'Something went wrong. Please try again.';
       formError.hidden = false;
+      window.turnstile?.reset();
     }
   } catch {
     clearTimeout(timeout);
@@ -81,6 +82,7 @@ form?.addEventListener('submit', async e => {
     submitBtn.innerHTML = originalHTML;
     formError.textContent = window.t('contact.err.connection') || 'Could not send message. Please check your connection and try again.';
     formError.hidden = false;
+    window.turnstile?.reset();
   }
 });
 

@@ -79,6 +79,17 @@ export default {
       return json({ success: true }, 200, cors);
     }
 
+    // Turnstile is the only control that stops a bot which rotates its sender
+    // address on every submission, so a missing secret must fail closed: an
+    // unverified form is what got the domain used as a spam relay.
+    if (!env.TURNSTILE_SECRET_KEY) {
+      console.error('TURNSTILE_SECRET_KEY is not set; refusing to send.');
+      return json({ success: false, message: 'The contact form is temporarily unavailable.' }, 503, cors);
+    }
+    if (!(await passesTurnstile(env.TURNSTILE_SECRET_KEY, body['cf-turnstile-response'], request))) {
+      return json({ success: false, message: 'Bot check failed. Please reload the page and try again.' }, 403, cors);
+    }
+
     const name = String(body.name || '').trim();
     const email = String(body.email || '').trim();
     const message = String(body.message || '').trim();
@@ -109,7 +120,11 @@ export default {
 
     const typeLabel = type.charAt(0).toUpperCase() + type.slice(1);
 
-    const notify = sendEmail(env.RESEND_API_KEY, {
+    // Exactly one email per submission, addressed to us. The form no longer
+    // sends anything to the address in the form: that address is unverified,
+    // and auto-replying to it is what let a bot use this form to mail
+    // strangers. The submitter sees the on-page success state instead.
+    const notifyRes = await sendEmail(env.RESEND_API_KEY, {
       from: FROM,
       to: [TEAM_EMAIL],
       reply_to: email,
@@ -120,35 +135,43 @@ export default {
         `Email: ${email}\n` +
         `Type: ${type}\n\n` +
         `Message:\n${message}\n`,
-    });
+    }).catch(err => err);
 
-    const confirm = sendEmail(env.RESEND_API_KEY, {
-      from: FROM,
-      to: [email],
-      subject: 'We received your message — Levi Recorder',
-      text:
-        `Hi ${name},\n\n` +
-        `Thanks for reaching out — we received your message and will get back to you as soon as we can.\n\n` +
-        `— The Levi Recorder team`,
-    });
-
-    const [notifyRes, confirmRes] = await Promise.allSettled([notify, confirm]);
-
-    const notifyOk = notifyRes.status === 'fulfilled' && notifyRes.value.ok;
-    if (!notifyOk) {
-      const detail = notifyRes.status === 'fulfilled' ? await safeText(notifyRes.value) : String(notifyRes.reason);
-      console.error('Resend notify failed:', detail);
+    if (!notifyRes.ok) {
+      console.error('Resend notify failed:', notifyRes instanceof Error ? String(notifyRes) : await safeText(notifyRes));
       return json({ success: false, message: 'Could not send your message. Please try again.' }, 502, cors);
-    }
-
-    if (confirmRes.status !== 'fulfilled' || !confirmRes.value.ok) {
-      const detail = confirmRes.status === 'fulfilled' ? await safeText(confirmRes.value) : String(confirmRes.reason);
-      console.error('Resend confirmation failed:', detail);
     }
 
     return json({ success: true }, 200, cors);
   },
 };
+
+// Cloudflare verifies the widget token server-side; a token is single-use, so a
+// bot cannot replay one across submissions. Any failure here rejects the
+// submission — this check is the whole defence against a sender that rotates
+// its address, so it must never fail open.
+async function passesTurnstile(secret, token, request) {
+  if (!token) return false;
+
+  const form = new FormData();
+  form.append('secret', secret);
+  form.append('response', String(token));
+  const ip = request.headers.get('CF-Connecting-IP');
+  if (ip) form.append('remoteip', ip);
+
+  try {
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: form,
+    });
+    const outcome = await res.json();
+    if (!outcome.success) console.log('Turnstile rejected:', JSON.stringify(outcome['error-codes'] || []));
+    return outcome.success === true;
+  } catch (err) {
+    console.error('Turnstile verification failed:', String(err));
+    return false;
+  }
+}
 
 // A spammer rotates freely inside their own IPv6 /64, so both limiters key on
 // the prefix rather than the full address. IPv4 is used as-is.
