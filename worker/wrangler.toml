@@ -3,6 +3,12 @@ main = "src/index.js"
 compatibility_date = "2026-05-10"
 
 [vars]
+# Kill switch. "0" stops every outbound email; "1" resumes normal operation.
+# Currently OFF: the form was being used as an open spam relay, mailing the
+# "We received your message" confirmation to arbitrary third-party addresses.
+# Do not set this back to "1" until the form requires a bot check.
+CONTACT_FORM_ENABLED = "0"
+
 # Comma-separated addresses and/or bare domains that never reach the inbox.
 # Add the offender here and redeploy; no code change needed.
 # These four are the June 2026 contact-form spam wave. They sit on major

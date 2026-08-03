@@ -30,6 +30,16 @@ export default {
       return new Response(null, { status: 204, headers: cors });
     }
 
+    // Kill switch. Set CONTACT_FORM_ENABLED = "0" and redeploy to stop every
+    // outbound email at once, without deleting the Worker. It runs before any
+    // other check so nothing downstream can fail open into a send.
+    if (env.CONTACT_FORM_ENABLED === '0') {
+      return json({
+        success: false,
+        message: 'The contact form is temporarily unavailable. Please email team@levirecorder.app directly.',
+      }, 503, cors);
+    }
+
     if (request.method !== 'POST') {
       return json({ success: false, message: 'Method not allowed' }, 405, cors);
     }
