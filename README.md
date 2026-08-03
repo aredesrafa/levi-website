@@ -71,15 +71,25 @@ notification, which is addressed to us.
 A blocklist only catches addresses that repeat, so it is the weakest control
 here — the August bot never reused one. Turnstile is what actually stops that.
 
-### Turnstile setup
+### Turnstile
 
-1. Create a widget for `levirecorder.app` in the Cloudflare dashboard
-   (Turnstile → Add widget).
-2. Put the **site key** in `contact.html`, replacing
-   `TURNSTILE_SITEKEY_PLACEHOLDER` on the `.cf-turnstile` div. It is public.
-3. Give the Worker the **secret key**:
-   `cd worker && npx wrangler secret put TURNSTILE_SECRET_KEY`.
-4. Flip `CONTACT_FORM_ENABLED` to `"1"` and redeploy.
+The widget is `levirecorder-contact` in the Cloudflare dashboard
+(Turnstile → Edit Widget), mode **Managed**, with three hostnames:
+`levirecorder.app`, `www.levirecorder.app`, `localhost`. Its site key is public
+and lives on the `.cf-turnstile` div in `contact.html`.
+
+`localhost` is there so the form can be exercised against
+`python3 -m http.server 8000`; the manual widget flow does not add it for you,
+only the "Set up with Spin" flow does.
+
+The secret key is a Worker secret and is never committed:
+
+```bash
+cd worker && npx wrangler secret put TURNSTILE_SECRET_KEY
+```
+
+Rotate it from the same Edit Widget page ("Rotate Secret Key", at most once
+every 2 hours; the old key keeps working during the swap).
 
 Tokens are single-use, so `contact.js` calls `turnstile.reset()` after every
 failed submit; without that, a retry would reuse a spent token and always fail.
